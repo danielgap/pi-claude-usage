@@ -1,6 +1,6 @@
 {
 	"name": "@danielgap/pi-claude-usage",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"description": "Claude subscription usage meter for pi-claude-bridge: registers the claude-bridge provider as a Gentle Shell usage source so the native usage bar and /gentle:usage panel show the 5-hour and weekly Claude windows.",
 	"license": "MIT",
 	"type": "module",
