@@ -48,6 +48,7 @@
 	"pi": {
 		"extensions": [
 			"./extensions"
-		]
+		],
+		"image": "https://raw.githubusercontent.com/danielgap/pi-claude-usage/main/docs/usage-panel.png"
 	}
 }
