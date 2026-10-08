@@ -24,14 +24,26 @@ The plan label comes from Claude Code's `subscriptionType` (`pro`, `max`, `team`
 
 ## Install
 
-Add the package to the `packages` array in `~/.pi/agent/settings.json`, then run `/reload` in Pi (or restart it):
+Install it as a Pi package from npm:
+
+```bash
+pi install npm:@danielgap/pi-claude-usage
+```
+
+Then run `/reload` in Pi (or restart it). This adds the package to the `packages` array in `~/.pi/agent/settings.json`:
 
 ```json
 "packages": [
   "/path/to/gentle-pi",
   "npm:pi-claude-bridge",
-  "/path/to/pi-claude-usage"
+  "npm:@danielgap/pi-claude-usage"
 ]
+```
+
+You can also install straight from git, no npm involved:
+
+```bash
+pi install git:github.com/danielgap/pi-claude-usage
 ```
 
 Requirements:
