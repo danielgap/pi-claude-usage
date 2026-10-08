@@ -4,7 +4,7 @@
 [![license](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 [![Pi package](https://img.shields.io/badge/Pi-package-6f42c1)](https://pi.dev/packages)
 
-Claude subscription usage for [pi-claude-bridge](https://github.com/elidickinson/pi-claude-bridge) sessions, shown in the [Gentle Shell](https://github.com/Gentleman-Programming/gentle-pi) usage bar and `/gentle:usage` panel. Designed for Gentle Shell: with the shell loaded it registers `claude-bridge` on its official third-party usage-source event and feeds its native usage surfaces, just like built-in Codex sources. Without Gentle Shell it still provides a standalone status-bar segment, a `/claude:usage` subscriptions panel, and automatic refresh while `claude-bridge` is the active provider.
+Claude subscription usage for [pi-claude-bridge](https://github.com/elidickinson/pi-claude-bridge) sessions, shown in the [Gentle Shell](https://github.com/Gentleman-Programming/gentle-shell) usage bar and `/gentle:usage` panel. Designed for Gentle Shell: with the shell loaded it registers `claude-bridge` on its official third-party usage-source event and feeds its native usage surfaces, just like built-in Codex sources. Without Gentle Shell it still provides a standalone status-bar segment, a `/claude:usage` subscriptions panel, and automatic refresh while `claude-bridge` is the active provider.
 
 ## Why
 
@@ -45,7 +45,7 @@ Then run `/reload` in Pi (or restart it). This adds the package to the `packages
 
 ```json
 "packages": [
-  "/path/to/gentle-pi",
+  "/path/to/gentle-shell",
   "npm:pi-claude-bridge",
   "npm:@danielgap/pi-claude-usage"
 ]
