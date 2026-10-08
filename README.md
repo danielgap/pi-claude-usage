@@ -4,7 +4,7 @@
 [![license](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 [![Pi package](https://img.shields.io/badge/Pi-package-6f42c1)](https://pi.dev/packages)
 
-Claude subscription usage for [pi-claude-bridge](https://github.com/elidickinson/pi-claude-bridge) sessions, shown in the [Gentle Shell](https://github.com/Gentleman-Programming/gentle-pi) usage bar and `/gentle:usage` panel.
+Claude subscription usage for [pi-claude-bridge](https://github.com/elidickinson/pi-claude-bridge) sessions, shown in the [Gentle Shell](https://github.com/Gentleman-Programming/gentle-pi) usage bar and `/gentle:usage` panel. Designed for Gentle Shell: with the shell loaded it registers `claude-bridge` on its official third-party usage-source event and feeds its native usage surfaces, just like built-in Codex sources. Without Gentle Shell it still provides a standalone status-bar segment, a `/claude:usage` subscriptions panel, and automatic refresh while `claude-bridge` is the active provider.
 
 ## Why
 
@@ -22,6 +22,16 @@ You get the 5-hour and weekly windows next to your other subscriptions. That inc
 | `opus`, `sonnet` | `week` | Only when your plan reports per-model weekly caps. |
 
 The plan label comes from Claude Code's `subscriptionType` (`pro`, `max`, `team`, ...).
+
+## Standalone (no Gentle Shell)
+
+Without the shell the package works on its own whenever `claude-bridge` is the active provider:
+
+- A status-bar segment (`claude 5h ▰▰▰▱▱▱▱▱ 43% · week 12%`) through pi's public `ctx.ui.setStatus` contract.
+- `/claude:usage` opens the same framed ✿ Subscriptions panel the shell's `/gentle:usage` opens (`r` refreshes, `esc` closes). `/claude:usage off` hides the standalone segment; `/claude:usage on` restores it.
+- Refreshes on session start and after agent runs, at most once every 5 minutes.
+
+If gentle-shell acknowledges the usage-source registration (`gentle-pi:usage-source-ack/v1`), the standalone segment retires for the rest of the session, so the shell's own placement and visibility settings always win.
 
 ## Install
 
@@ -49,8 +59,9 @@ pi install git:github.com/danielgap/pi-claude-usage
 
 Requirements:
 
-- Gentle Shell (gentle-pi) loaded. This package has no UI of its own; without the shell it does nothing.
+- `pi-claude-bridge` installed and its `claude-bridge` provider configured — the meter only fetches while it is the active provider.
 - Claude Code logged in with a subscription (`claude` → `/login`).
+- Gentle Shell is optional: with it you get the native usage bar and panel integration, without it the standalone segment and the `/claude:usage` panel.
 
 ## Security model
 
@@ -62,7 +73,7 @@ Requirements:
 
 - **Undocumented endpoint.** Anthropic may change it at any time. Unknown shapes degrade to "no usage", never to an error.
 - **macOS.** Claude Code stores its credentials in the Keychain there, so the file is missing and the meter stays empty.
-- **Refresh cadence.** Gentle Shell owns it: on session start and when you press `r` in `/gentle:usage` (forced), and after agent runs at most once every 5 minutes.
+- **Refresh cadence.** With Gentle Shell the shell owns it: on session start and when you press `r` in `/gentle:usage` (forced), and after agent runs at most once every 5 minutes. Standalone mode follows the same cadence itself.
 
 This extension was [built with Gentle AI](https://github.com/Gentleman-Programming/gentle-ai#built-with-gentle-ai).
 
