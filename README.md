@@ -64,6 +64,8 @@ Requirements:
 - **macOS.** Claude Code stores its credentials in the Keychain there, so the file is missing and the meter stays empty.
 - **Refresh cadence.** Gentle Shell owns it: on session start and when you press `r` in `/gentle:usage` (forced), and after agent runs at most once every 5 minutes.
 
+This extension was [built with Gentle AI](https://github.com/Gentleman-Programming/gentle-ai#built-with-gentle-ai).
+
 ## Releasing
 
 Releases publish automatically from version tags through [`.github/workflows/publish.yml`](.github/workflows/publish.yml):
