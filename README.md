@@ -1,5 +1,6 @@
 # pi-claude-usage
 
+[![npm](https://img.shields.io/npm/v/@danielgap/pi-claude-usage)](https://www.npmjs.com/package/@danielgap/pi-claude-usage)
 [![license](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 [![Pi package](https://img.shields.io/badge/Pi-package-6f42c1)](https://pi.dev/packages)
 
@@ -62,6 +63,23 @@ Requirements:
 - **Undocumented endpoint.** Anthropic may change it at any time. Unknown shapes degrade to "no usage", never to an error.
 - **macOS.** Claude Code stores its credentials in the Keychain there, so the file is missing and the meter stays empty.
 - **Refresh cadence.** Gentle Shell owns it: on session start and when you press `r` in `/gentle:usage` (forced), and after agent runs at most once every 5 minutes.
+
+## Releasing
+
+Releases publish automatically from version tags through [`.github/workflows/publish.yml`](.github/workflows/publish.yml):
+
+1. Bump `package.json` to the next version, commit, and push to `main`.
+2. Tag the release on the freshly fetched `origin/main` commit — the workflow verifies the tag is annotated, matches `package.json`'s version, and points to a commit reachable from `main`:
+
+   ```bash
+   git fetch origin main --tags
+   git tag -a vX.Y.Z "$(git rev-parse 'origin/main^{commit}')" -m "@danielgap/pi-claude-usage vX.Y.Z"
+   git push origin refs/tags/vX.Y.Z
+   ```
+
+3. CI installs, tests, typechecks, packs, publishes to npm with provenance, creates the GitHub Release if it is missing, and verifies the registry. A brand-new package version can take a few minutes to appear in the registry after a successful publish.
+
+First-time setup: an `NPM_TOKEN` secret with publish rights is required under **Settings → Secrets and variables → Actions**. A run that failed for publication-only reasons can be retried without moving its tag (`gh workflow run publish.yml -f tag=vX.Y.Z`).
 
 ## Development
 
