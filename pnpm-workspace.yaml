@@ -1,0 +1,6 @@
+allowBuilds:
+  # Transitive devDependencies of the pi package; only tests
+  # and typecheck run here, so no native build scripts are needed.
+  "@google/genai": false
+  esbuild: false
+  protobufjs: false
