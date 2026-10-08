@@ -24,7 +24,7 @@ The plan label comes from Claude Code's `subscriptionType` (`pro`, `max`, `team`
 
 ## Install
 
-Add the package to the `packages` array in `~/.pi/agent/settings.json` and restart Pi:
+Add the package to the `packages` array in `~/.pi/agent/settings.json`, then run `/reload` in Pi (or restart it):
 
 ```json
 "packages": [
