@@ -128,5 +128,18 @@ jobs:
       - name: Verify npm
         run: |
           set -euo pipefail
-          npm view "${PKG_NAME}@${VERSION}" version --registry=https://registry.npmjs.org/
+          # npm accepts a publish before the new version is queryable: a fresh
+          # version can take a few minutes to appear in the registry. Retry
+          # for up to ~3 minutes instead of racing propagation.
+          attempt=1
+          until [ "$(npm view "${PKG_NAME}@${VERSION}" version --registry=https://registry.npmjs.org/ 2>/dev/null || true)" = "${VERSION}" ]; do
+            if [ "${attempt}" -gt 18 ]; then
+              echo "::error::${PKG_NAME}@${VERSION} did not appear in the npm registry within 3 minutes of publishing"
+              exit 1
+            fi
+            echo "attempt ${attempt}/18: registry does not serve ${PKG_NAME}@${VERSION} yet; retrying in 10s"
+            attempt=$((attempt + 1))
+            sleep 10
+          done
+          echo "registry serves ${PKG_NAME}@${VERSION} (attempt ${attempt})"
           npm dist-tag ls "${PKG_NAME}" --registry=https://registry.npmjs.org/
